@@ -1,15 +1,21 @@
 class Grid:
-    def __init__(self, x: int, y: int):
-        self.x, self.y = x, y
+    def __init__(self, width: int, length: int):
+        self.width, self.length = width, length
         self.__walls = {}
         self.__food = {}
         self.__ghosts = {}
         self.__pac_man = None
-
-        self.__createGrid()
+        self.__matrix = self.__createGrid()
 
     def __createGrid(self):
-        pass
+        __matrix = []
+        for i in range(self.width):
+            for j in range(self.length):
+                if i == 0 or j == 0 or i == self.width - 1 or j == self.length - 1:
+                    __matrix.append(1)
+                else:
+                    __matrix.append(0)
+        return __matrix
 
     def setWalls(self, *walls: "Wall"):
         pass
@@ -65,12 +71,25 @@ class Food:
         self.x, self.y = x, y
 
 
-class BigBall(Food): pass
+class BigBall(Food):
+    pass
 
 
 class Wall:
-    def __init__(self, point1: tuple[float, float], point2: tuple[float, float]):
-        self.point1, self.point2 = point1, point2
+    def __init__(self, start: tuple[float, float], length: int, direction: str):
+        self.start = start  # starting point of the wall
+        self.length = length  # length of the wall
+        match direction:  # faster method than if-else
+            case "x":
+                self.direction = (1, 0)
+            case "y":
+                self.direction = (0, 1)
+            case _:
+                raise ValueError("Invalid parameter: direction. direction should be x or y")
+
+    def getWallPoints(self):
+        pass
 
 
-class Box(Wall): pass
+class Box(Wall):
+    pass
