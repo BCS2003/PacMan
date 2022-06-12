@@ -76,19 +76,21 @@ class BigBall(Food):
 
 
 class Wall:
-    def __init__(self, start: tuple[float, float], length: int, direction: str):
+    def __init__(self, start: tuple[int, int], length: int, direction: str):
+        assert direction in ("x", "y"),\
+            "Invalid parameter: direction. direction should be x or y"  # makes sure direction is "x" or "y"
         self.start = start  # starting point of the wall
         self.length = length  # length of the wall
-        match direction:  # faster method than if-else
-            case "x":
-                self.direction = (1, 0)
-            case "y":
-                self.direction = (0, 1)
-            case _:
-                raise ValueError("Invalid parameter: direction. direction should be x or y")
+        self.direction = direction
 
     def getWallPoints(self):
-        pass
+        inc = 1
+        if self.length < 0: inc = -1
+        match self.direction:
+            case "x":
+                return [(k + self.start[0], self.start[1]) for k in range(0, self.length, inc)]
+            case "y":
+                return [(self.start[0], k + self.start[1]) for k in range(0, self.length, inc)]
 
 
 class Box(Wall):
