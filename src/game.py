@@ -18,6 +18,10 @@ class Grid:
         self.__matrix = self.__createGrid()
 
     def __createGrid(self):
+        """
+        defining a matrix and adding 1 to the no. of rows if any condition is met
+        :return:
+        """
         __matrix = []
         for j in range(self.length):
             y = []
@@ -57,6 +61,13 @@ class PacMan:
 
 
 class Ghost:
+    """
+    chase, frightened and transition are the states of the ghosts and the ghosts have varying properties according
+    to their respective states.
+    Chase: Normal ghost state, one ghost will chase after pacman by default
+    Frightened: ghosts tend to move at a slightly slower speed, away from PacMan, and change appearance to dark blue
+    transition: ghosts still are in the Frightened state, but are about to go back to the Chase state,
+    """
     def __init__(self, img1: str, img2: str, img3: str, img4: str, x: float, y: float, vel: float):
         self.__img1, self.__img2, self.__img3, self.__img4 = img1, img2, img3, img4
         self.x, self.y = x, y
