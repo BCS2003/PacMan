@@ -1,4 +1,14 @@
 class Grid:
+    def __repr__(self):  # repr stands for represent
+        string = "\n"
+        for y in self.__matrix:
+            for x in y:
+                if x == 1: x = '|'
+                else: x = 'o'
+                string += f'{x} '
+            string += '\n'
+        return string
+
     def __init__(self, width: int, length: int):
         self.width, self.length = width, length
         self.__walls = {}
@@ -9,16 +19,20 @@ class Grid:
 
     def __createGrid(self):
         __matrix = []
-        for i in range(self.width):
-            for j in range(self.length):
+        for j in range(self.length):
+            y = []
+            for i in range(self.width):
                 if i == 0 or j == 0 or i == self.width - 1 or j == self.length - 1:
-                    __matrix.append(1)
+                    y.append(1)
                 else:
-                    __matrix.append(0)
+                    y.append(0)
+            __matrix.append(y)
         return __matrix
 
     def setWalls(self, *walls: "Wall"):
-        pass
+        for wall in walls:
+            for point in wall.getWallPoints():
+                self.__matrix[point[1]][point[0]] = 1
 
     def setPacMan(self, x: float, y: float):
         pass
